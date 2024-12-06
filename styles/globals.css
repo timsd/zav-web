@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-green: #003f1f;
+    --color-orange: #FF734d;
+    --color-black: #1d1c21;
+    --color-white: #FFFFFF;
+  }
+
+  body {
+    font-family: 'Sofia Sans', sans-serif;
+  }
+
+  @font-face {
+    font-family: 'Zavolah Font';
+    src: url('/fonts/zavolah-font.woff2') format('woff2'),
+         url('/fonts/zavolah-font.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+}
+
+@layer components {
+  .zavolah-font {
+    font-family: 'Zavolah Font', cursive;
+  }
+
+  .zavolah-animation {
+    background: linear-gradient(90deg, var(--color-orange), var(--color-green));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-size: 200% 100%;
+    animation: gradientMove 5s linear infinite;
+  }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.animate-scroll {
+  animation: scroll 20s linear infinite;
+  display: flex;
+  white-space: nowrap;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}

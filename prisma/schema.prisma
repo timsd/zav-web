@@ -1,0 +1,102 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Basic models - expand these based on your needs
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password String
+  name      String?
+  role     String    @default("user")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  SELLER
+  STAFF
+  ADMIN
+}
+
+// Add these models to your existing schema.prisma
+
+model Product {
+  id          String      @id @default(cuid())
+  name        String
+  description String
+  price       Float
+  category    String
+  image       String
+  rating      Float       @default(0)
+  reviews     Int         @default(0)
+  inStock     Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  CartItem    CartItem[]
+  WishlistItem WishlistItem[]
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  userId    String
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  quantity  Int
+  productId String
+  cartId    String
+  product   Product  @relation(fields: [productId], references: [id])
+  cart      Cart     @relation(fields: [cartId], references: [id])
+}
+
+model Wishlist {
+  id        String         @id @default(cuid())
+  userId    String
+  items     WishlistItem[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+}
+
+model WishlistItem {
+  id         String   @id @default(cuid())
+  productId  String
+  wishlistId String
+  product    Product  @relation(fields: [productId], references: [id])
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id])
+}
+
+model Payment {
+  id        String   @id @default(cuid())
+  reference String   @unique
+  amount    Float
+  status    PaymentStatus
+  type      PaymentType
+  userId    String
+  itemId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum PaymentType {
+  MARKETPLACE
+  STORE
+  ACADEMY
+}

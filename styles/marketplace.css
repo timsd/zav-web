@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Sofia+Sans:wght@400;700&display=swap');
+
+:root {
+  --color-green: #003f1f;
+  --color-orange: #FF734d;
+  --color-black: #1d1c21;
+  --color-white: #FFFFFF;
+}
+
+/* Rest of the CSS styles */

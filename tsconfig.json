@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./*"],  // Root alias for general files
+      "@/components/*": ["./components/*"],  // Update to point to components inside src
+      "@/lib/*": ["./lib/*"],  // Assuming lib is also under src
+      "@/styles/*": ["./styles/*"]  // Styles remain the same if it's in the root
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
